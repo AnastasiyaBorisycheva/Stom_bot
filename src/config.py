@@ -12,6 +12,7 @@ if not BOT_TOKEN:
 
 class Settings(BaseSettings):
     DATABASE_URL: str
+    BOT_TOKEN: str
 
     class Config:
         env_file = ".env"
