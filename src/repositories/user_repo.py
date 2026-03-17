@@ -1,9 +1,10 @@
 from sqlalchemy import select, update
 from sqlalchemy.ext.asyncio import AsyncSession
-from datetime import datetime
+from datetime import datetime, timezone
 
 from models import User
 from .base import BaseRepository
+from utils.time_utils import now_utc
 
 
 class UserRepository(BaseRepository):
@@ -20,10 +21,12 @@ class UserRepository(BaseRepository):
         query = select(User).where(User.tg_id == tg_id)
         result = await self.session.execute(query)
         user = result.scalar_one_or_none()
+
+        now = now_utc()
         
         if user:
             # Обновляем last_seen
-            user.last_seen = datetime.now()
+            user.last_seen = now
             await self.session.commit()
             return user, False
         else:
@@ -34,8 +37,8 @@ class UserRepository(BaseRepository):
                 first_name=first_name,
                 last_name=last_name,
                 source=source,
-                first_seen=datetime.now(),
-                last_seen=datetime.now()
+                first_seen=now,
+                last_seen=now
             )
             self.session.add(user)
             await self.session.commit()
@@ -50,8 +53,9 @@ class UserRepository(BaseRepository):
 
     async def update_last_seen(self, tg_id: int) -> None:
         """Обновить время последнего визита"""
+        now = now_utc()
         query = update(User).where(User.tg_id == tg_id).values(
-            last_seen=datetime.now()
+            last_seen=now
         )
         await self.session.execute(query)
         await self.session.commit()

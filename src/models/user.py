@@ -1,10 +1,11 @@
-from sqlalchemy import Column, Integer, String, DateTime
-from sqlalchemy.sql import func
+from sqlalchemy import Column, DateTime, Integer, String
+
 from db.session import Base
 
 
 class User(Base):
     __tablename__ = "users"
+    __table_args__ = {'extend_existing': True}
 
     id = Column(Integer, primary_key=True, index=True)
     tg_id = Column(Integer, unique=True, nullable=False, index=True)
@@ -12,5 +13,5 @@ class User(Base):
     first_name = Column(String, nullable=True)
     last_name = Column(String, nullable=True)
     source = Column(String, nullable=True)  # откуда пришёл (place param)
-    first_seen = Column(DateTime(timezone=True), server_default=func.now())
-    last_seen = Column(DateTime(timezone=True), onupdate=func.now())
+    first_seen = Column(DateTime(timezone=True), nullable=False)
+    last_seen = Column(DateTime(timezone=True), nullable=False)
