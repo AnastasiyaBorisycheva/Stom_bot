@@ -10,6 +10,7 @@ from messages import MESSAGES
 from repositories import UserRepository
 from utils.time_utils import format_datetime  # пригодится для отладки
 from utils.time_utils import format_date
+from keyboards.main_menu import get_main_menu_keyboard
 
 router = Router()
 
@@ -49,7 +50,7 @@ async def cmd_start(message: Message):
     source, problem = parse_start_payload(message.text or "")
 
     # Логируем для отладки
-    print(f"🔥 /start от {tg_id} (@{username}) | source: {source}, problem: {problem}")
+    print(f"Command /start from {tg_id} (@{username}) | source: {source},problem: {problem}")
 
     # Работа с БД
     async with AsyncSessionLocal() as session:
@@ -79,4 +80,7 @@ async def cmd_start(message: Message):
                 first_date=first_date
             )
 
-        await message.answer(text)
+        await message.answer(
+            text,
+            reply_markup=get_main_menu_keyboard()
+        )

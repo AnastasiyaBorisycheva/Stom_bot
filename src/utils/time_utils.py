@@ -1,6 +1,5 @@
 from datetime import datetime, timezone
 from zoneinfo import ZoneInfo
-import pytz
 
 
 # Часовой пояс Москвы
