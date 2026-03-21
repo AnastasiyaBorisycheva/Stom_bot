@@ -5,3 +5,6 @@ __pycache__/
 *.pyc
 .DS_Store
 logs/
+
+data/service_account.json
+*.db
