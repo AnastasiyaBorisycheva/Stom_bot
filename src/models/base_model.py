@@ -1,7 +1,7 @@
 # src/models/base_model.py
 
 from sqlalchemy import Column, Integer, String
-from db.session import Base
+from src.db.session import Base
 
 
 class TestUser(Base):

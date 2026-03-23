@@ -2,9 +2,9 @@ import json
 from sqlalchemy import select, update
 from sqlalchemy.ext.asyncio import AsyncSession
 
-from models import State
+from src.models import State
 from .base import BaseRepository
-from utils.time_utils import now_utc
+from src.utils.time_utils import now_utc
 
 
 class StateRepository(BaseRepository):

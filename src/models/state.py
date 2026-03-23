@@ -1,6 +1,6 @@
 from sqlalchemy import Column, DateTime, ForeignKey, Integer, String
 
-from db.session import Base
+from src.db.session import Base
 
 
 class State(Base):

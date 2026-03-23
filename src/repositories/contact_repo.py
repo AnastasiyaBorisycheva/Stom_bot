@@ -1,8 +1,8 @@
 from sqlalchemy import select
 from sqlalchemy.ext.asyncio import AsyncSession
 
-from models import Contact
-from utils.time_utils import now_utc
+from src.models import Contact
+from src.utils.time_utils import now_utc
 
 from .base import BaseRepository
 
@@ -94,5 +94,12 @@ class ContactRepository(BaseRepository):
     async def get_contacts_by_user(self, user_id: int):
         """Получить все контакты пользователя"""
         query = select(Contact).where(Contact.user_id == user_id)
+        result = await self.session.execute(query)
+        return result.scalars().all()
+
+    async def get_all_contacts(self) -> list[Contact]:
+        """Получить все контакты"""
+
+        query = select(Contact)
         result = await self.session.execute(query)
         return result.scalars().all()

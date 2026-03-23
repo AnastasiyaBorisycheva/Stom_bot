@@ -1,6 +1,6 @@
 from sqlalchemy import Column, Integer, String, DateTime, ForeignKey
 from sqlalchemy.sql import func
-from db.session import Base
+from src.db.session import Base
 
 
 class Event(Base):

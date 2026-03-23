@@ -13,6 +13,7 @@ if not BOT_TOKEN:
 class Settings(BaseSettings):
     DATABASE_URL: str
     BOT_TOKEN: str
+    GOOGLE_SHEETS_ID: str = ""
 
     class Config:
         env_file = ".env"

@@ -1,11 +1,12 @@
 import asyncio
 import logging
+
 from aiogram import Bot, Dispatcher
 from aiogram.fsm.storage.memory import MemoryStorage
 
-from config import settings  # у тебя есть файл с настройками?
-from handlers import routers  # импортируем наш роутер
-from db.session import init_db 
+from .config import settings
+from .db.session import init_db
+from .handlers import routers
 
 # Настройка логирования
 logging.basicConfig(level=logging.INFO)

@@ -5,12 +5,12 @@ from aiogram.filters import Command
 from aiogram.types import Message
 from aiogram.utils.deep_linking import decode_payload  # для меток
 
-from db.session import AsyncSessionLocal
-from messages import MESSAGES
-from repositories import UserRepository
-from utils.time_utils import format_datetime  # пригодится для отладки
-from utils.time_utils import format_date
-from keyboards.main_menu import get_main_menu_keyboard
+from ..db.session import AsyncSessionLocal
+from ..keyboards.main_menu import get_main_menu_keyboard
+from ..messages import MESSAGES
+from ..repositories import UserRepository
+from ..utils.time_utils import format_date
+
 
 router = Router()
 

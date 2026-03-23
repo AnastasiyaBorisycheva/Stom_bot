@@ -4,15 +4,16 @@ from aiogram.fsm.context import FSMContext
 from aiogram.types import (Contact, KeyboardButton, Message,
                            ReplyKeyboardMarkup, ReplyKeyboardRemove)
 
-from db.session import AsyncSessionLocal
-from keyboards.contact import get_phone_keyboard
-from keyboards.main_menu import get_main_menu_keyboard
-from keyboards.test_keyboards import (APPOINTMENT_BUTTON, MENU_BUTTON,
-                                      get_test_keyboard)
-from repositories import ContactRepository, StateRepository, EventRepository
-from states.user_states import UserStates
-from tests import TESTS, get_test_by_button
-
+from ..db.session import AsyncSessionLocal
+from ..keyboards.contact import get_phone_keyboard
+from ..keyboards.main_menu import get_main_menu_keyboard
+from ..keyboards.test_keyboards import (APPOINTMENT_BUTTON, MENU_BUTTON,
+                                        get_test_keyboard)
+from ..repositories import ContactRepository, StateRepository
+from ..states.user_states import UserStates
+from ..tests import get_test_by_button
+from ..utils.message_sender import send_message_by_config
+from ..tests import TESTS, get_test_by_button
 
 router = Router()
 
