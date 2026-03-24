@@ -7,6 +7,7 @@ def get_main_menu_keyboard() -> ReplyKeyboardMarkup:
     buttons = [
         [KeyboardButton(text="Записаться к врачу")],
         [KeyboardButton(text="ВНЧС")],
+        [KeyboardButton(text="Узнать про ВНЧС")],
         [KeyboardButton(text="Прикус")],
         [KeyboardButton(text="Стираемость зубов")],
         [KeyboardButton(text="Зубы мудрости")],

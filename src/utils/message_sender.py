@@ -1,5 +1,7 @@
 from aiogram.types import Message, InlineKeyboardMarkup, InlineKeyboardButton
 from aiogram.utils.media_group import MediaGroupBuilder
+from aiogram.types import Message, InlineKeyboardMarkup, InlineKeyboardButton
+from aiogram.types import InputMediaPhoto, InputMediaVideo
 
 
 async def send_message_by_config(
@@ -15,7 +17,7 @@ async def send_message_by_config(
         - video: file_id
         - buttons: список кортежей (text, callback_data)
     """
-    text = config.get("text")
+    text = config.get("text", "")
     photo = config.get("photo")
     video = config.get("video")
     buttons = config.get("buttons", [])
@@ -31,7 +33,7 @@ async def send_message_by_config(
         )
 
     # Отправляем с учётом медиа
-    if video:
+    if False and video:  # Видео временно отключено
         if edit:
             await message.edit_media(
                 media=InputMediaVideo(media=video, caption=text),
@@ -39,7 +41,7 @@ async def send_message_by_config(
             )
         else:
             await message.answer_video(video, caption=text, reply_markup=keyboard)
-    elif photo:
+    elif photo and False:  # Фото временно отключены
         if edit:
             await message.edit_media(
                 media=InputMediaPhoto(media=photo, caption=text),
