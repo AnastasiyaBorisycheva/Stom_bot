@@ -1,22 +1,12 @@
-from aiogram.types import ReplyKeyboardMarkup, KeyboardButton
+from aiogram.types import InlineKeyboardMarkup, InlineKeyboardButton
 
 
-def get_main_menu_keyboard() -> ReplyKeyboardMarkup:
-    """Клавиатура главного меню с выбором проблемы"""
-
+def get_main_menu_keyboard() -> InlineKeyboardMarkup:
     buttons = [
-        [KeyboardButton(text="Записаться к врачу")],
-        [KeyboardButton(text="ВНЧС")],
-        [KeyboardButton(text="Узнать про ВНЧС")],
-        [KeyboardButton(text="Прикус")],
-        [KeyboardButton(text="Стираемость зубов")],
-        [KeyboardButton(text="Зубы мудрости")],
+        [InlineKeyboardButton(text="🔘 ВНЧС", callback_data="vncs_start_f")],
+        [InlineKeyboardButton(text="🔘 Прикус", callback_data="bite_start")],
+        [InlineKeyboardButton(text="🔘 Стираемость зубов", callback_data="wear_start")],
+        [InlineKeyboardButton(text="🔘 Зубы мудрости", callback_data="wisdom_teeth_start")],
+        [InlineKeyboardButton(text="🔘 Записаться к врачу", callback_data="consultation")]
     ]
-
-    keyboard = ReplyKeyboardMarkup(
-        keyboard=buttons,
-        resize_keyboard=True,  # чтобы кнопки были компактными
-        one_time_keyboard=False  # не скрывать после нажатия
-    )
-
-    return keyboard
+    return InlineKeyboardMarkup(inline_keyboard=buttons)

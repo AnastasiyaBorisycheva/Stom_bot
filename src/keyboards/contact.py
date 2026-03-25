@@ -5,7 +5,7 @@ def get_phone_keyboard() -> ReplyKeyboardMarkup:
     """Клавиатура с кнопкой для отправки телефона"""
 
     button = KeyboardButton(
-        text="Отправить номер телефона",
+        text="📞 Отправить номер телефона",
         request_contact=True  # Telegram запросит разрешение и отправит контакт
     )
 

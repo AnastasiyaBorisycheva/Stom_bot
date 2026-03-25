@@ -1,8 +1,8 @@
 from aiogram.types import ReplyKeyboardMarkup, KeyboardButton
 
 # Служебные кнопки
-MENU_BUTTON = "Главное меню"
-APPOINTMENT_BUTTON = "Записаться к врачу"
+MENU_BUTTON = "🔘 Главное меню"
+APPOINTMENT_BUTTON = "🔘 Записаться к врачу"
 
 
 def get_test_keyboard(buttons: list[str]) -> ReplyKeyboardMarkup:
