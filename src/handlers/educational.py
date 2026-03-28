@@ -1,12 +1,10 @@
 from aiogram import F, Router
 from aiogram.fsm.context import FSMContext
-from aiogram.types import CallbackQuery, Message
+from aiogram.types import CallbackQuery
 
-from ..db.session import AsyncSessionLocal
 from ..keyboards.contact import get_phone_keyboard
 from ..keyboards.main_menu import get_main_menu_keyboard
-from ..messages.vncs import VNCS_MESSAGES
-from ..repositories import ContactRepository, EventRepository, StateRepository
+from ..messages import ALL_MESSAGES
 from ..states.user_states import UserStates
 from ..utils.message_sender import send_message_by_config
 
@@ -40,18 +38,30 @@ async def consultation_request(callback: CallbackQuery, state: FSMContext):
     await callback.answer()
 
 
-@router.callback_query(F.data.in_(VNCS_MESSAGES.keys()))
+@router.callback_query(F.data.in_(ALL_MESSAGES.keys()))
 async def handle_educational_callback(callback: CallbackQuery, state: FSMContext):
     """Обрабатывает нажатия на кнопки образовательных сообщений"""
     msg_id = callback.data
-    msg_config = VNCS_MESSAGES[msg_id]
+    msg_config = ALL_MESSAGES.get(msg_id)
+    if not msg_config:
+        await callback.answer("Сообщение не найдено")
+        return
 
     await state.set_state(UserStates.education)
 
+    # Проверяем, можно ли редактировать
+    original_message = callback.message
+    can_edit = False
+    if original_message.photo or original_message.video:
+        # Если исходное сообщение содержит медиа — не редактируем
+        can_edit = False
+    elif not msg_config.get("photo") and not msg_config.get("video"):
+        # Если и новое сообщение без медиа — можно редактировать
+        can_edit = True
     await send_message_by_config(
         callback.message,
         msg_config,
-        edit=True  # редактируем текущее сообщение
+        edit=can_edit  # редактируем текущее сообщение
     )
 
     await callback.answer()

@@ -73,11 +73,13 @@ async def send_message_by_config(
             else:
                 await message.answer(text, parse_mode=parse_mode, reply_markup=keyboard)
     elif video:
-        # Видео пока отключено, отправляем текст
         if edit:
-            await message.edit_text(text, parse_mode=parse_mode, reply_markup=keyboard)
+            await message.edit_media(
+                InputMediaVideo(media=video, caption=text, parse_mode=parse_mode),
+                reply_markup=keyboard
+            )
         else:
-            await message.answer(text, parse_mode=parse_mode, reply_markup=keyboard)
+            await message.answer_video(video, caption=text, parse_mode=parse_mode, reply_markup=keyboard)
     else:
         # Только текст
         if edit:
